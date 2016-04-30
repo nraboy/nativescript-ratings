@@ -2,6 +2,8 @@
 
 This Telerik NativeScript plugin will prompt the user to rate your application after a defined amount of calls, or preferably, a defined amount of application opens.
 
+![NativeScript Ratings](/nativescript-ratings-image.png)
+
 ## Installation
 
 This plugin will work for both Android and iOS.  To install it into your project, execute the following from your Command Prompt (Windows) or Terminal (Mac and Linux) with the project as the current working directory:

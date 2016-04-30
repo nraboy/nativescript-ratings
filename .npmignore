@@ -1,3 +1,4 @@
 demo/
+nativescript-ratings-image*
 *.ts
 !*.d.ts
