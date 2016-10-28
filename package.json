@@ -1,6 +1,6 @@
 {
   "name": "nativescript-ratings",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Prompt users to rate the Telerik NativeScript application",
   "main": "ratings.js",
   "typings": "ratings.d.ts",
