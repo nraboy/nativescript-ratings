@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Prompt users to rate the Telerik NativeScript application",
   "main": "ratings.js",
+  "typings": "ratings.d.ts",
   "nativescript": {
     "platforms": {
       "android": "2.0.0",
@@ -19,15 +20,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/couchbaselabs/nativescript-ratings.git"
+    "url": "https://github.com/nraboy/nativescript-ratings.git"
   },
   "keywords": [
     "ratings",
     "review",
     "prompt",
     "telerik",
-    "nativescript"
+    "nativescript",
+    "app rating"
   ],
   "author": "Nic Raboy",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "contributors": [{
+    "name": "Brad Martin",
+    "email": "bradwaynemartin@gmail.com",
+    "url": "https://github.com/bradmartin"
+  }]
 }
