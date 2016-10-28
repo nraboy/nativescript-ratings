@@ -3,6 +3,8 @@ import * as Dialogs from "ui/dialogs";
 import * as Utility from "utils/utils";
 import * as ApplicationSettings from "application-settings";
 
+declare var android: any;
+
 export interface IConfiguration {
     id?: string;
     showOnCount?: number;
@@ -36,7 +38,7 @@ export class Ratings {
     }
 
     prompt() {
-        if(this.showCount == this.configuration.showOnCount) {
+        if (this.showCount == this.configuration.showOnCount) {
             Dialogs.confirm({
                 title: this.configuration.title,
                 message: this.configuration.text,
@@ -44,15 +46,19 @@ export class Ratings {
                 cancelButtonText: this.configuration.declineButtonText,
                 neutralButtonText: this.configuration.remindButtonText
             }).then(result => {
-                if(result == true) {
+                if (result == true) {
                     let appStore = "";
-                    if(Application.android) {
-                        appStore = "market://details?id=" + this.configuration.androidPackageId;
-                    } else if(Application.ios) {
+                    if (Application.android) {
+                        let androidPackageName = this.configuration.androidPackageId ? this.configuration.androidPackageId : Application.android.packageName;
+                        let uri = android.net.Uri.parse("market://details?id=" + androidPackageName);
+                        let myAppLinkToMarket = new android.content.Intent(android.content.Intent.ACTION_VIEW, uri);
+                        // Launch the PlayStore
+                        Application.android.foregroundActivity.startActivity(myAppLinkToMarket);
+                    } else if (Application.ios) {
                         appStore = "itms-apps://itunes.apple.com/en/app/id" + this.configuration.iTunesAppId;
                     }
                     Utility.openUrl(appStore);
-                } else if(result == false) {
+                } else if (result == false) {
                     // Decline
                 } else {
                     ApplicationSettings.setNumber(this.configuration.id, 0);
