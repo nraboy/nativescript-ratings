@@ -39,30 +39,32 @@ export class Ratings {
 
     prompt() {
         if (this.showCount == this.configuration.showOnCount) {
-            Dialogs.confirm({
-                title: this.configuration.title,
-                message: this.configuration.text,
-                okButtonText: this.configuration.agreeButtonText,
-                cancelButtonText: this.configuration.declineButtonText,
-                neutralButtonText: this.configuration.remindButtonText
-            }).then(result => {
-                if (result == true) {
-                    let appStore = "";
-                    if (Application.android) {
-                        let androidPackageName = this.configuration.androidPackageId ? this.configuration.androidPackageId : Application.android.packageName;
-                        let uri = android.net.Uri.parse("market://details?id=" + androidPackageName);
-                        let myAppLinkToMarket = new android.content.Intent(android.content.Intent.ACTION_VIEW, uri);
-                        // Launch the PlayStore
-                        Application.android.foregroundActivity.startActivity(myAppLinkToMarket);
-                    } else if (Application.ios) {
-                        appStore = "itms-apps://itunes.apple.com/en/app/id" + this.configuration.iTunesAppId;
+            setTimeout(() => {
+                Dialogs.confirm({
+                    title: this.configuration.title,
+                    message: this.configuration.text,
+                    okButtonText: this.configuration.agreeButtonText,
+                    cancelButtonText: this.configuration.declineButtonText,
+                    neutralButtonText: this.configuration.remindButtonText
+                }).then(result => {
+                    if (result == true) {
+                        let appStore = "";
+                        if (Application.android) {
+                            let androidPackageName = this.configuration.androidPackageId ? this.configuration.androidPackageId : Application.android.packageName;
+                            let uri = android.net.Uri.parse("market://details?id=" + androidPackageName);
+                            let myAppLinkToMarket = new android.content.Intent(android.content.Intent.ACTION_VIEW, uri);
+                            // Launch the PlayStore
+                            Application.android.foregroundActivity.startActivity(myAppLinkToMarket);
+                        } else if (Application.ios) {
+                            appStore = "itms-apps://itunes.apple.com/en/app/id" + this.configuration.iTunesAppId;
+                        }
+                        Utility.openUrl(appStore);
+                    } else if (result == false) {
+                        // Decline
+                    } else {
+                        ApplicationSettings.setNumber(this.configuration.id, 0);
                     }
-                    Utility.openUrl(appStore);
-                } else if (result == false) {
-                    // Decline
-                } else {
-                    ApplicationSettings.setNumber(this.configuration.id, 0);
-                }
+                });
             });
         }
     }
