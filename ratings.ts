@@ -23,12 +23,13 @@ export class Ratings {
     private showCount: number;
 
     constructor(configuration: IConfiguration) {
-        this.configuration = configuration;
-        this.configuration.id = this.configuration.id || "ratings-0";
-        this.configuration.showOnCount = this.configuration.showOnCount || 5;
-        this.configuration.agreeButtonText = this.configuration.agreeButtonText || "Rate Now";
-        this.configuration.remindButtonText = this.configuration.remindButtonText || "Remind Me Later";
-        this.configuration.declineButtonText = this.configuration.declineButtonText || "No Thanks";
+        this.configuration = Object.assign({
+            id: "ratings-0",
+            showOnCount: 5,
+            agreeButtonText: "Rate Now",
+            remindButtonText: "Remind Me Later",
+            declineButtonText: "No Thanks"
+        }, configuration);
     }
 
     init() {
